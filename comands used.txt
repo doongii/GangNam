@@ -1,0 +1,21 @@
+python -m venv venv
+source venv/bin/activate  # en Windows: venv\Scripts\activate
+pip install django djangorestframework psycopg2-binary
+django-admin startproject backend
+cd backend
+python manage.py startapp reservas
+
+python manage.py makemigrations
+python manage.py migrate
+
+npx create-react-app frontend
+npm install axios react-router-dom
+
+pip install django-cors-headers
+
+python manage.py runserver
+npm start
+
+select * from reservas_reserva
+
+sudo -u postgres psql
