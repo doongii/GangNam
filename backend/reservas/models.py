@@ -1,9 +1,9 @@
 from django.db import models
 
 class Reserva(models.Model):
-    nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-    telefono = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    telefono = models.CharField(max_length=15)
     fecha = models.DateField()
     hora = models.TimeField()
     num_personas = models.IntegerField()
