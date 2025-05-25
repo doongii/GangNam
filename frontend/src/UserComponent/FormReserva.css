@@ -2,7 +2,7 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap:10px;
   max-width: 400px;
   margin: auto;
   padding: 20px;
@@ -12,10 +12,16 @@ form {
 
 input,
 textarea {
+  width: 100%;
   padding: 8px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.filled_value{
+  margin: 3px;
+  font-size: 20px;
 }
 
 button {

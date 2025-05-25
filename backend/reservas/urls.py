@@ -1,10 +1,10 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import ReservaViewSet
-
-router = DefaultRouter()
-router.register(r'reservas', ReservaViewSet)
+from django.urls import path
+from .views import crear_reserva
+from .views import configuracion_reserva
+from .views import actualizar_fechas_cerradas
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('reservas/', crear_reserva, name='crear_reserva'),
+    path('configuracion/', configuracion_reserva),
+    path('configuracion/fechas_cerradas/', actualizar_fechas_cerradas),
 ]

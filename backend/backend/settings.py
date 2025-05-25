@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',    
     'rest_framework',
-    'reservas'
+    'reservas',
+    'restaurant_user',
+    'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INSTALLED_APPS += ['corsheaders']
 MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
 CORS_ALLOW_ALL_ORIGINS = True  # En producción, usa solo tu dominio
+
+AUTH_USER_MODEL = 'restaurant_user.RestaurantUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
