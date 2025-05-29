@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <h1>Bienvenido al sistema de reservas</h1>
-      <button onClick={() => navigate('/reservar')}>Reservar ahora</button><br/> <br/>
+      <button onClick={() => navigate('/restaurantes')}>Reservar ahora</button><br/> <br/>
       <button onClick={() => navigate('/login')}>Admin</button>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../formulario.css'
+import BotonBack from '../generalComponent/BotonBack';
 
 const Login = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -17,12 +18,13 @@ const Login = () => {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:8000/api/restaurant/login/', form);
+      const res = await axios.post('http://localhost:8000/api/restaurantes/login/', form);
       const token = res.data.token;
 
       // Guardar el token en localStorage o sessionStorage
       localStorage.setItem('token', token);
-      localStorage.setItem('user', form.username);
+      localStorage.setItem('user_id', res.data.user_id);
+      localStorage.setItem('username',res.data.username );
 
       // Redirigir al panel admin o configuración
       navigate('/admin/panel');
@@ -32,31 +34,34 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <h2>Iniciar sesión - Restaurante</h2>
+    <div>
+      <BotonBack/>
+      <form onSubmit={handleSubmit} className="form-container">
+        <h2>Iniciar sesión - Restaurante</h2>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <input
-        type="text"
-        name="username"
-        placeholder="Nombre de usuario"
-        value={form.username}
-        onChange={handleChange}
-        required
-      />
+        <input
+          type="text"
+          name="username"
+          placeholder="Nombre de usuario"
+          value={form.username}
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
 
-      <button type="submit">Entrar</button>
-    </form>
+        <button type="submit">Entrar</button>
+      </form>
+      </div>
   );
 };
 

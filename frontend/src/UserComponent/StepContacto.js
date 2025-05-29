@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../formulario.css'
+import BotonBack from '../generalComponent/BotonBack';
 
 const StepContacto = () => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const StepContacto = () => {
   };
 
   return (
+    <div>
+      <BotonBack/>
     <div className='InfoBox'>
       <h2>Información de contacto</h2>
       <input name="nombre" placeholder="Nombre" onChange={handleChange} required />
@@ -32,6 +35,7 @@ const StepContacto = () => {
       <input name="telefono" placeholder="Teléfono" onChange={handleChange} required />
       <textarea name="comentarios" placeholder="Comentarios" onChange={handleChange} />
       <button onClick={handleNext}>Siguiente</button>
+    </div>
     </div>
   );
 };

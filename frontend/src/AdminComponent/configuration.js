@@ -7,19 +7,23 @@ import Calendar from "react-multi-date-picker";
 
 const ConfigAdmin = () => {
   const [form, setForm] = useState({
-    user: localStorage.getItem('user'),
+    restaurante: parseInt(localStorage.getItem('user_id')),
     hora_inicio_1: '12:30',
     hora_fin_1: '16:00',
     hora_inicio_2: '19:30',
     hora_fin_2: '23:00',
-    Intervalo: 30,
-    MinPersona: 2,
-    MaxPersona: 10,
-    MaxPersonaPerperiod:20,
+    intervalo: 30,
+    min_personas: 2,
+    max_personas: 10,
+    max_personas_por_periodo:20,
   });
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/configuracion/')
+    axios.get('http://localhost:8000/api/reservas/configuracion/', {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    })
       .then(res => setForm(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -32,9 +36,9 @@ const ConfigAdmin = () => {
 
 
   const handleSubmit = e => {
-    console.log(localStorage.getItem('token'))
+    console.log(form)
     e.preventDefault();
-    axios.put('http://localhost:8000/api/configuracion/', form, {
+    axios.put('http://localhost:8000/api/reservas/configuracion/', form, {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`
       }
@@ -45,7 +49,7 @@ const ConfigAdmin = () => {
 
   const handleSubmitCalendar = e => {
     e.preventDefault();
-    axios.put('http://localhost:8000/api/configuracion/fechas_cerradas/', {
+    axios.put('http://localhost:8000/api/reservas/configuracion/fechas_cerradas/', {
       fechas_cerradas: form.fechas_cerradas,
     }, {
       headers: {
@@ -100,8 +104,8 @@ const ConfigAdmin = () => {
           </div>
         </div>
         <div>
-          <label htmlFor="opciones">Intervalor de tiempo:  </label>
-          <select name="Intervalo" value={form.Intervalo} onChange={handleChange}>
+          <label htmlFor="opciones">intervalor de tiempo:  </label>
+          <select name="intervalo" value={form.intervalo} onChange={handleChange}>
             <option value="10">10 min</option>
             <option value="15">15 min</option>
             <option value="30">30 min</option>
@@ -114,7 +118,7 @@ const ConfigAdmin = () => {
 
         <div>
           <label htmlFor="opciones">Mínimo de persona: </label>
-          <select name="MinPersona" value={form.MinPersona} onChange={handleChange}>
+          <select name="min_personas" value={form.min_personas} onChange={handleChange}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -124,7 +128,7 @@ const ConfigAdmin = () => {
 
         <div>
           <label htmlFor="opciones">Máximo de persona:  </label>
-          <select name="MaxPersona" value={form.MaxPersona} onChange={handleChange}>
+          <select name="max_personas" value={form.max_personas} onChange={handleChange}>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -139,7 +143,7 @@ const ConfigAdmin = () => {
 
         <div>
           <label htmlFor="opciones">Máximo personas por periodo:  </label>
-            <input name="MaxPersonaPerperiod" value={form.MaxPersonaPerperiod} onChange={handleChange} required />
+            <input name="max_personas_por_periodo" value={form.max_personas_por_periodo} onChange={handleChange} required />
         </div>
         <button type="submit">Guardar configuración</button>
       </form>

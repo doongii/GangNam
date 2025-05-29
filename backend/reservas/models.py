@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.conf import settings  # Para acceder al modelo de usuario
 
 class Reserva(models.Model):
+    restaurante = models.ForeignKey(
+        settings.AUTH_USER_MODEL,  # Referencia al modelo de usuario (RestaurantUser)
+        on_delete=models.CASCADE,
+        related_name='reservas'
+    )
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
@@ -13,7 +19,8 @@ class Reserva(models.Model):
     creada_en = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido} - {self.fecha} {self.hora}"
+        return f"{self.nombre} {self.apellido} - {self.fecha} {self.hora} ({self.restaurante})"
+
 
 User = get_user_model()
 
